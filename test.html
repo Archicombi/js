@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jquery.min.js" type="text/javascript"></script>
+  </head>
+  <style>
+    #inp {
+      top: 50%;
+      left: 50%;
+      margin-left: -50px;
+      margin-top: -25px;
+      width: 100px;
+      height: 50px;
+      position: absolute;
+      cursor: pointer;
+      border: 1px solid #969696;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div id="inp">Тест</div>
+    
+    <script type="text/javascript">
+      $(function () {
+        var top = $('#inp').css('top');
+        var left = $('#inp').css('left');
+        top = parseInt(top);
+        left = parseInt(left);
+        
+        var minOffset = -5;
+        var maxOffset = 5;
+        
+        var timeOut;
+        
+        function random(min, max) {
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        function motion(element, speed) {
+          var offsetTop = top + random(minOffset, maxOffset) * random(-1, 1);
+          var offsetLeft = left + random(minOffset, maxOffset) * random(-1, 1);
+          element.animate({'top': offsetTop + 'px', 'left': offsetLeft + 'px'}, speed);
+          timeOut = setTimeout(motion(element, speed), speed);
+        }
+        
+        $('#inp').on('mouseenter', function () {
+          motion($(this), 100);
+        });
+        
+        $('#inp').on('mouseleave', function () {
+          clearTimeout(timeOut);
+        });
+        
+      });
+    </script>
+  </body>
+</html>
